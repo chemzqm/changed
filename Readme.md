@@ -2,7 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/chemzqm/changed.png)](http://travis-ci.org/chemzqm/changed)
 
-Get changed Object from form with format support [Demo](chemzqm.github.io/changed/)
+Get changed Object from form with format support [Demo](http://chemzqm.github.io/changed/)
 
 TODO: test
 
