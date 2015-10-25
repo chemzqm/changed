@@ -9,12 +9,12 @@ TODO: test
 
 ## Install
 
-    npm i changed-form
+    npm i form-changed
 
 ## Usage
 
 ``` js
-var Changed = require('changed-form')
+var Changed = require('form-changed')
 var form = document.forms[0]
 var checker = new Changed(form, {
   pets: 'array',
