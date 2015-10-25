@@ -99,4 +99,12 @@ describe('invalid component', function () {
       tags: ['a', 'b', 'c', 'd']
     })
   })
+
+  it('should ignore invaliad field', function () {
+    var el = query('tags')
+    var checker = new Changed(form)
+    el.value = 'a,b,c,d'
+    el.style.display = 'none'
+    assert.equal(checker.changed(), false)
+  })
 })
