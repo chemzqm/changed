@@ -4,9 +4,6 @@
 
 Get changed Object from form with format support [Demo](http://chemzqm.github.io/changed/)
 
-TODO: test
-
-
 ## Install
 
     npm i form-changed
