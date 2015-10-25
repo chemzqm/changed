@@ -13,7 +13,7 @@ TODO: test
 
 ## Usage
 
-```
+``` js
 var Changed = require('changed-form')
 var form = document.forms[0]
 var checker = new Changed(form, {
