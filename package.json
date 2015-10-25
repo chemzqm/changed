@@ -26,6 +26,7 @@
     "coveralls": "^2.11.4",
     "css-loader": "^0.21.0",
     "domify": "^1.4.0",
+    "form-serialize": "^0.7.0",
     "gulp": "^3.9.0",
     "gulp-livereload": "^3.8.1",
     "gulp-serve": "^1.2.0",
