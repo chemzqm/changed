@@ -57,24 +57,21 @@ Changed.prototype.diffObj =function (origObj, newObj, format) {
   Object.keys(newObj).forEach(function (k) {
     var orig = origObj[k]
     var v = newObj[k]
+    if (v === orig) return
     var el = query('[name=' + k + ']', this.form)
     if (invalid(el, form)) return
-    if (format[k] === 'array') {
-      orig = toArray(orig)
-      v = toArray(v)
-      arr = getDifferent(orig, v)
+    var type = format[k]
+    if (!type) {
+      res[k] = newObj[k]
+      return
+    }
+    if (type === 'array') {
+      arr = getDifferent(toArray(orig), toArray(v))
       if (arr) res[k] = cleanArray(arr)
-    } else if (orig !== v) {
-      var type = format[k]
-      if (type) {
-        if (typeof type === 'function') {
-          res[k] = type(v)
-        } else {
-          res[k] = formatWithType(v, type)
-        }
-      } else {
-        res[k] = newObj[k]
-      }
+    } else if (typeof type === 'function'){
+      res[k] = type(v)
+    } else {
+      res[k] = formatWithType(v, type)
     }
   })
   return res
