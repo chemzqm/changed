@@ -14,7 +14,7 @@ var serialize = require('form-serialize')
 function Changed(form, format) {
   if (!(this instanceof Changed)) return new Changed(form, format)
   this.format = format || {}
-  if (/form/i.test(form.tageName)) throw new Error('changed-form require form element')
+  if (!/^form$/i.test(form.tagName)) throw new Error('changed-form require form element')
   this.form = form
   this.origObj = serialize(form, {
     hash: true,
