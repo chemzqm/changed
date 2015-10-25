@@ -119,6 +119,7 @@ function toArray(str) {
  * @api public
  */
 function formatWithType(val, type) {
+  val = val.trim()
   switch (type) {
     case 'number':
       if (val === '') return 0
