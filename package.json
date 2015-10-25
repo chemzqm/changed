@@ -1,6 +1,6 @@
 {
   "name": "form-changed",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Get the changed object from form",
   "main": "index.js",
   "scripts": {
