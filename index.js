@@ -4,7 +4,6 @@ var serialize = require('form-serialize')
 
 /**
  * Init changed by `form` and `format` Object
- *
  * format support number, boolean, timestamp, function and array of strings
  *
  * @param {Element} form element
@@ -50,6 +49,15 @@ Changed.prototype.reset = function () {
   })
 }
 
+/**
+ * Get object with new properties
+ *
+ * @param {Object} origObj
+ * @param {Object} newObj
+ * @param {format} format
+ * @return {Object} object with new properties
+ * @api private
+ */
 Changed.prototype.diffObj =function (origObj, newObj, format) {
   var res = {}
   var arr
