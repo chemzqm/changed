@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Test</title>
+    <link rel="stylesheet" href="./kube.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="./solarized_light.css" />
+    <style type="text/css" media="screen">
+      .middle {
+        width: 800px;
+        margin: 50px auto;
+      }
+      pre {
+        background: inherit;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="middle">
+      <p>
+      <ul>
+        <li>click <strong>reset</strong> to reset changed-from</li>
+        <li>click <strong>check</strong> to get changed values between reset</li>
+      </ul>
+      </p>
+    </div>
+    <row class="middle">
+      <column cols="5">
+      <form class="forms" action="/example.html" method="POST">
+        <section>
+          <label>Name <span></span></label>
+          <input type="text" name="name" required>
+        </section>
+        <section>
+          <label>Age <span></span></label>
+          <input type="number" name="age" min="0" max="200">
+        </section>
+        <section>
+          <label for="birthday">Birthday</label>
+          <input name="birthday" type="date">
+        </section>
+        <section>
+          <select name="country" id="country" class="select">
+            <option value="">---</option>
+            <option value="America">America</option>
+            <option value="Canda">Canda</option>
+            <option value="China">China</option>
+          </select>
+        </section>
+        <section class="checkbox-list">
+          <label><input name="pets" type="checkbox" value="pig">pig</label>
+          <label><input name="pets" type="checkbox" value="dog">dog</label>
+          <label><input name="pets" type="checkbox" value="cat">cat</label>
+          <label><input name="pets" type="checkbox" value="monkey">monkey</label>
+        </section>
+        <section class="checkbox-list">
+          <label><input type="radio" name="size" value="1">one</label>
+          <label><input type="radio" name="size" value="2">two</label>
+          <label><input type="radio" name="size" value="3">three</label>
+          <label><input type="radio" name="size" value="4">four</label>
+        </section>
+        <section>
+        <label><input name="active" type="checkbox">active</label>
+        </section>
+        <section>
+          <button type="primary" id="submit">check</button> <button id="reset">Reset</button>
+        </section>
+      </form>
+      </column>
+      <column cols="8">
+        <pre style="margin-top: 20px;">
+          <code id="changed">
+          </code>
+        </pre>
+      </column>
+    </row>
+    <div class="middle">
+      <pre id="code"><code>
+var Changed = require('..')
+var form = document.forms[0]
+var checker = new Changed(form, {
+  pets: 'array',
+  active: 'boolean',
+  age: 'number'
+})
+
+var btn = document.getElementById('submit')
+btn.addEventListener('click', function (e) {
+  e.preventDefault()
+  var changed = checker.changed()
+  var str = JSON.stringify(changed, null, 2)
+  document.getElementById('changed').textContent = str
+})
+
+document.getElementById('reset').addEventListener('click', function (e) {
+  checker.reset()
+})
+      </code></pre>
+    </div>
+    <script src="./bundle.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+    </script>
+  </body>
+</html>
