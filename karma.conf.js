@@ -15,7 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'test/test.js',
+      'test/test.js'
     ],
 
     // list of files to exclude
@@ -50,6 +50,13 @@ module.exports = function(config) {
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
 
+    webpack: {
+      module: {
+        loaders: [
+          {test: /\.html$/, loader: 'html'}
+        ]
+      }
+    },
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher

@@ -21,12 +21,16 @@
   },
   "homepage": "https://github.com/chemzqm/form-changed#readme",
   "devDependencies": {
+    "component-notice": "0.0.13",
     "connect-livereload": "^0.5.3",
     "coveralls": "^2.11.4",
+    "css-loader": "^0.21.0",
+    "domify": "^1.4.0",
     "gulp": "^3.9.0",
     "gulp-livereload": "^3.8.1",
     "gulp-serve": "^1.2.0",
     "gulp-util": "^3.0.7",
+    "html-loader": "^0.3.0",
     "karma": "^0.13.14",
     "karma-cli": "^0.1.1",
     "karma-coverage": "^0.5.3",
@@ -35,12 +39,14 @@
     "karma-webpack": "^1.7.0",
     "mocha": "^2.3.3",
     "mocha-loader": "^0.7.1",
+    "style-loader": "^0.13.0",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.12.1"
   },
   "browser": {
     "invalid": "invalid-component",
-    "query": "component-query"
+    "query": "component-query",
+    "notice": "component-notice"
   },
   "dependencies": {
     "component-query": "0.0.3",

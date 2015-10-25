@@ -10,6 +10,12 @@ var myConfig = {
   output: {
     path: 'example',
     filename: 'bundle.js'
+  },
+  module: {
+    loaders: [
+      {test: /\.css$/, loader: 'style!css'},
+      {test: /\.html$/, loader: 'style!html'}
+    ]
   }
 }
 // for debugging

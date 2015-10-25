@@ -1,70 +1,102 @@
 /*global describe, it, beforeEach, afterEach*/
 var assert = require('assert')
-var invalid = require('..')
+var Changed = require('..')
+var domify = require('domify')
+var template = require('./template.html')
 
-;(function () {
-  var css = '.hide{ display:none; } .hidden{visibility:hidden;}',
-  head = document.head || document.getElementsByTagName('head')[0],
-  style = document.createElement('style')
-
-  style.type = 'text/css'
-  if (style.styleSheet){
-    style.styleSheet.cssText = css
-  } else {
-    style.appendChild(document.createTextNode(css))
-  }
-
-  head.appendChild(style)
-})()
-
-function create() {
-  return document.createElement('div')
-}
 
 describe('invalid component', function () {
-  var initEl
-  var el
+  var form
+  var input
+
+  function query(name) {
+    return form.querySelector('[name="' + name + '"]')
+  }
+
   beforeEach(function () {
-    initEl = create()
-    var child = create()
-    initEl.appendChild(child)
-    child.appendChild(create())
-    el = document.createElement('input')
-    child.childNodes[0].appendChild(el)
-    document.body.appendChild(initEl)
+    form = domify(template)
+    document.body.appendChild(form)
+    input = document.getElementById('name')
   })
 
   afterEach(function (done) {
-    document.body.removeChild(initEl)
-    el = null
-    setTimeout(done, 200)
+    document.body.removeChild(form)
+    setTimeout(done, 10)
   })
 
-  it('should be invalid when el disabled', function () {
-    el.disabled = true
-    assert.equal(invalid(el), true)
+  it('should throw error when first argument is not form', function () {
+    var err
+    var el = document.createElement('div')
+    try {
+      new Changed(el)
+    } catch(e) {
+      err = e
+    }
+    assert(/changed-form/.test(err.message))
   })
 
-  it('should be invalid when el is hidden', function () {
-    el.style.display = 'none'
-    assert.equal(invalid(el), true)
-    el.style.display = 'block'
-    assert.equal(invalid(el), false)
-    el.style.display = ''
-    el.className = 'hide'
-    assert.equal(invalid(el), true)
+  it('should return false when form not changed', function () {
+    var checker = new Changed(form)
+    assert.equal(checker.changed(), false)
+    input.value = 'tobi'
+    checker.reset()
+    assert.equal(checker.changed(), false)
   })
 
-  it('should be invalid when el parent is hidden', function () {
-    initEl.style.display = 'none'
-    assert.equal(invalid(el), true)
-    initEl.style.display = ''
-    assert.equal(invalid(el), false)
-    initEl.className = 'hide'
-    assert.equal(invalid(el), true)
-    initEl.className = 'hidden'
-    assert.equal(invalid(el), true)
-    initEl.className = ''
-    assert.equal(invalid(el), false)
+  it('should works with changed text input', function () {
+    var checker = new Changed(form)
+    input.value = 'bear'
+    var changed = checker.changed()
+    assert.equal(changed.name, 'bear')
+  })
+
+  it('should works with changed select/radio/checkbox', function () {
+    var checker = new Changed(form, {
+      pets: 'array'
+    })
+    form.querySelector('[name="country"]').value = 'China'
+    var ck = form.querySelector('[name="pets"]')
+    ck.checked = true
+    var radio = form.querySelector('[name="size"]')
+    radio.checked = true
+    var changed = checker.changed()
+    assert.deepEqual(changed, {
+      country: 'China',
+      size: radio.value,
+      pets: [ck.value]
+    })
+  })
+
+  it('should works with default formatter', function () {
+    var checker = new Changed(form, {
+      pets: 'array',
+      active: 'boolean',
+      count: 'number',
+      date: 'timestamp'
+    })
+    query('active').checked = true
+    checker.reset()
+    query('active').checked = false
+    query('count').value = '1,618.37'
+    query('date').value = '1971-01-01'
+    var changed = checker.changed()
+    assert.deepEqual(changed, {
+      active: false,
+      count: 1618.37,
+      date: 31536000000
+    })
+  })
+
+  it('should works with custom formatter', function () {
+    var checker = new Changed(form, {
+      tags: function (v) {
+        return v.split(',')
+      }
+    })
+    query('tags').value = 'a,b,c,d'
+    var changed = checker.changed()
+    assert.deepEqual(changed, {
+      tags: ['a', 'b', 'c', 'd']
+    })
   })
 })
