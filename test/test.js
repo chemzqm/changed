@@ -5,7 +5,7 @@ var domify = require('domify')
 var template = require('./template.html')
 
 
-describe('invalid component', function () {
+describe('changed component', function () {
   var form
   var input
 
@@ -103,8 +103,8 @@ describe('invalid component', function () {
   it('should ignore invaliad field', function () {
     var el = query('tags')
     var checker = new Changed(form)
-    el.value = 'a,b,c,d'
-    el.style.display = 'none'
+    el.value = 'a,b,cd'
+    el.disabled = true
     assert.equal(checker.changed(), false)
   })
 })

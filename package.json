@@ -1,6 +1,6 @@
 {
   "name": "form-changed",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Get the changed object from form",
   "main": "index.js",
   "scripts": {
@@ -51,6 +51,6 @@
   },
   "dependencies": {
     "component-query": "0.0.3",
-    "invalid-component": "0.0.1"
+    "invalid-component": "0.0.2"
   }
 }
