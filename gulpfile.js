@@ -14,7 +14,7 @@ var myConfig = {
   module: {
     loaders: [
       {test: /\.css$/, loader: 'style!css'},
-      {test: /\.html$/, loader: 'style!html'}
+      {test: /\.html$/, loader: 'html'}
     ]
   }
 }
