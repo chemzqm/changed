@@ -1,7 +1,7 @@
 # Changed
 
-[![Build Status](https://secure.travis-ci.org/chemzqm/changed.png)](http://travis-ci.org/chemzqm/changed)
-[![Dependency Status](https://david-dm.org/chemzqm/changed)](https://david-dm.org/chemzqm/changed)
+[![Build Status](https://secure.travis-ci.org/chemzqm/changed.svg)](http://travis-ci.org/chemzqm/changed)
+[![Dependency Status](https://david-dm.org/chemzqm/changed.svg)](https://david-dm.org/chemzqm/changed)
 
 Get changed Object from form with format support [Demo](http://chemzqm.github.io/changed/)
 
